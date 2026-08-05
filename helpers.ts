@@ -64,10 +64,13 @@ let debugParamNames: string[] = ["Osc1Shape",
 
 let helperNoteFreq: number[] = [131, 139, 147, 156, 165, 175, 185, 196, 208, 220, 233, 247, 262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494, 523, 555, 587, 622, 659, 698, 740, 784, 831, 880, 932, 988]
 
+//LEGACY HACK
+/*
 let synthIsRunningInSimulator = true
 if (pins.digitalReadPin(DigitalPin.P20)) {
     synthIsRunningInSimulator = false
 }
+*/
 
 enum sequences {
     //%block="sequence one"
@@ -181,15 +184,8 @@ namespace synthBlocks {
     //% velocity.defl=127
     //% duration.defl=200
     export function playSynthNote(note: number, duration: number, velocity: number, voice: SynthPreset): void {
-        //console.log(note)
         let calcNoteNumber =Math.round((12 * Math.log(note / 220) / Math.log(2)) + 57.01);
             orchestra.note(calcNoteNumber, duration, velocity, voice)
-            //console.log("actual freq = " + note)
-            //console.log("calcNote = " + calcNoteNumber)
-            //console.log("-")
-            if (synthIsRunningInSimulator) {
-                music.playTone(note, duration)
-            }
     }
 
     //%block="start parallell| $seqSelex"
